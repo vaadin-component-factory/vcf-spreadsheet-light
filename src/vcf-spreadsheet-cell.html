@@ -10,7 +10,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 <link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
 <link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
 
-<dom-module id="incubator-spreadsheet-cell">
+<dom-module id="vcf-spreadsheet-cell">
   <template>
     <style>
       :host {
@@ -39,19 +39,19 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
   <script>
     (function () {
       /**
-       * `<incubator-spreadsheet-cell>` is a cell in for incubator-spreadsheet-light.
+       * `<vcf-spreadsheet-cell>` is a cell in for vcf-spreadsheet-light.
        *
        * ```
-       * <incubator-spreadsheet-cell>
-       * </incubator-spreadsheet-cell>
+       * <vcf-spreadsheet-cell>
+       * </vcf-spreadsheet-cell>
        * ```
        *
        * @memberof Vaadin
        * @demo demo/index.html
        */
-      class IncubatorSpreadsheetCell extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
+      class VcfSpreadsheetCell extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
         static get is() {
-          return 'incubator-spreadsheet-cell';
+          return 'vcf-spreadsheet-cell';
         }
 
         /**
@@ -178,7 +178,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             this.$.label.innerText = this.value;
           }
 
-          this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-selected', {
+          this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-selected', {
             bubbles: true,
             composed: true,
             detail: {
@@ -201,7 +201,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           }
           this.set('selected', false);
 
-          this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-blurred', {
+          this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-blurred', {
             bubbles: true,
             composed: true,
             detail: {
@@ -231,7 +231,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           switch (ev.keyCode) {
             case 13:
               ev.preventDefault();
-              this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-key-return', {
+              this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-return', {
                 bubbles: true,
                 composed: true,
                 detail: {
@@ -243,7 +243,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               return;
             case 37:
               if (this._ctrlDown) {
-                this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-key-left', {
+                this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-left', {
                   bubbles: true,
                   composed: true,
                   detail: {
@@ -255,7 +255,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               }
               return;
             case 38:
-              this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-key-up', {
+              this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-up', {
                 bubbles: true,
                 composed: true,
                 detail: {
@@ -267,7 +267,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               return;
             case 39:
               if (this._ctrlDown) {
-                this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-key-right', {
+                this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-right', {
                   bubbles: true,
                   composed: true,
                   detail: {
@@ -279,7 +279,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               }
               return;
             case 40:
-              this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-key-down', {
+              this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-down', {
                 bubbles: true,
                 composed: true,
                 detail: {
@@ -292,7 +292,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             case 86:
               if (this._ctrlDown) {
                 ev.preventDefault();
-                this.dispatchEvent(new CustomEvent('incubator-spreadsheet-cell-paste', {
+                this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-paste', {
                   bubbles: true,
                   composed: true,
                   detail: {
@@ -310,15 +310,15 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         }
       }
 
-      customElements.define(IncubatorSpreadsheetCell.is, IncubatorSpreadsheetCell);
+      customElements.define(VcfSpreadsheetCell.is, VcfSpreadsheetCell);
 
       /**
        * @namespace Vaadin
        */
-      window.Vaadin.IncubatorSpreadsheetCell = IncubatorSpreadsheetCell;
+      window.Vaadin.VcfSpreadsheetCell = VcfSpreadsheetCell;
 
       if (window.Vaadin.runIfDevelopmentMode) {
-        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', IncubatorSpreadsheetCell);
+        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfSpreadsheetCell);
       }
     })();
   </script>

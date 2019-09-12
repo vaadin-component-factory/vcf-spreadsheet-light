@@ -1,4 +1,4 @@
-gemini.suite('incubator-spreadsheet-light', function(rootSuite) {
+gemini.suite('vcf-spreadsheet-light', function(rootSuite) {
   function wait(actions, find) {
     actions.wait(5000);
   }

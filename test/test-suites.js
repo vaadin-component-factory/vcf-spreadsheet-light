@@ -1,3 +1,3 @@
-window.IncubatorSpreadsheetLightSuites = [
+window.VcfSpreadsheetLightSuites = [
   'sample.html',
 ];

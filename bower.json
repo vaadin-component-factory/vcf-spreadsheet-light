@@ -1,19 +1,19 @@
 {
-  "name": "incubator-spreadsheet-light",
+  "name": "vcf-spreadsheet-light",
   "homepage": "https://vaadin.com/components",
   "authors": [
     "Vaadin Ltd"
   ],
-  "description": "incubator-spreadsheet-light",
-  "main": "incubator-spreadsheet-light.html",
+  "description": "vcf-spreadsheet-light",
+  "main": "vcf-spreadsheet-light.html",
   "keywords": [
     "Vaadin",
-    "incubator-spreadsheet-light",
+    "vcf-spreadsheet-light",
     "web-components",
     "web-component",
     "polymer"
   ],
-  "license": "https://raw.githubusercontent.com/vaadin/incubator-spreadsheet-light/master/LICENSE",
+  "license": "https://raw.githubusercontent.com/vaadin/vcf-spreadsheet-light/master/LICENSE",
   "ignore": [
     "**/.*",
     "node_modules",

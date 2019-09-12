@@ -11,9 +11,9 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 <link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
 <link rel="import" href="../../vaadin-grid/vaadin-grid.html">
 
-<link rel="import" href="incubator-spreadsheet-cell.html">
+<link rel="import" href="vcf-spreadsheet-cell.html">
 
-<dom-module id="incubator-spreadsheet-light">
+<dom-module id="vcf-spreadsheet-light">
   <template>
     <vaadin-grid id="spreadsheet" items="{{_spreadsheetData}}">
       <vaadin-grid-column width="60px" flex-grow="0" text-align="center" id="indexColumn"></vaadin-grid-column>
@@ -26,19 +26,19 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
   <script>
     (function () {
       /**
-       * `<incubator-spreadsheet-light>` is a light weight spreadsheet.
+       * `<vcf-spreadsheet-light>` is a light weight spreadsheet.
        *
        * ```
-       * <incubator-spreadsheet-light>
-       * </incubator-spreadsheet-light>
+       * <vcf-spreadsheet-light>
+       * </vcf-spreadsheet-light>
        * ```
        *
        * @memberof Vaadin
        * @demo demo/index.html
        */
-      class IncubatorSpreadsheetLight extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
+      class VcfSpreadsheetLight extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
         static get is() {
-          return 'incubator-spreadsheet-light';
+          return 'vcf-spreadsheet-light';
         }
 
         static get properties() {
@@ -184,25 +184,25 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
         _getCell(row, col) {
           return this.shadowRoot.querySelector(
-            `incubator-spreadsheet-cell[col="${col.toLowerCase()}"][row="${row}"]`
+            `vcf-spreadsheet-cell[col="${col.toLowerCase()}"][row="${row}"]`
           );
         }
 
         _createCell(colPath, rowIndex, initialValue = '') {
-          const cell = document.createElement('incubator-spreadsheet-cell');
+          const cell = document.createElement('vcf-spreadsheet-cell');
           cell.setAttribute('col', colPath);
           cell.setAttribute('row', rowIndex);
           cell.setAttribute('value', initialValue);
 
-          cell.addEventListener('incubator-spreadsheet-cell-key-up', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-key-up', (ev) => {
             this._focusCell(ev.detail.col, ev.detail.row - 1, ev.detail.ctrlDown);
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-key-down', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-key-down', (ev) => {
             this._focusCell(ev.detail.col, ev.detail.row + 1, ev.detail.ctrlDown);
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-key-left', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-key-left', (ev) => {
             const colIndex = this._getColumnIndex(ev.detail.col);
 
             if (colIndex > 0) {
@@ -210,7 +210,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             }
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-key-right', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-key-right', (ev) => {
             const colIndex = this._getColumnIndex(ev.detail.col);
 
             if (colIndex + 1 < this._referenceSequence.length) {
@@ -218,7 +218,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             }
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-key-return', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-key-return', (ev) => {
             if (ev.detail.row === this._spreadsheetData.length - 1) {
               this.push('_spreadsheetData', this._getEmptyRow());
             }
@@ -226,18 +226,18 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             this._focusCell(ev.detail.col, ev.detail.row + 1, ev.detail.ctrlDown);
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-selected', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-selected', (ev) => {
             this.set('_selectedCell', {
               col: ev.detail.col,
               row: ev.detail.row
             });
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-blurred', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-blurred', (ev) => {
             this._spreadsheetData[ev.detail.row][ev.detail.col] = ev.detail.value;
           });
 
-          cell.addEventListener('incubator-spreadsheet-cell-paste', (ev) => {
+          cell.addEventListener('vcf-spreadsheet-cell-paste', (ev) => {
             this._pasteFromClipboard();
           });
 
@@ -340,15 +340,15 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         }
       }
 
-      customElements.define(IncubatorSpreadsheetLight.is, IncubatorSpreadsheetLight);
+      customElements.define(VcfSpreadsheetLight.is, VcfSpreadsheetLight);
 
       /**
        * @namespace Vaadin
        */
-      window.Vaadin.IncubatorSpreadsheetLight = IncubatorSpreadsheetLight;
+      window.Vaadin.VcfSpreadsheetLight = VcfSpreadsheetLight;
 
       if (window.Vaadin.runIfDevelopmentMode) {
-        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', IncubatorSpreadsheetLight);
+        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfSpreadsheetLight);
       }
     })();
   </script>

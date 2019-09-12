@@ -6,7 +6,7 @@
       "description": "",
       "summary": "",
       "sourceRange": {
-        "file": "src/incubator-spreadsheet-light.html",
+        "file": "src/vcf-spreadsheet-light.html",
         "start": {
           "line": 44,
           "column": 6
@@ -18,9 +18,9 @@
       },
       "elements": [
         {
-          "description": "`<incubator-spreadsheet-light>` is a template for incubator components.\n\n```\n<incubator-spreadsheet-light>\n</incubator-spreadsheet-light>\n```",
+          "description": "`<vcf-spreadsheet-light>` is a template for vcf components.\n\n```\n<vcf-spreadsheet-light>\n</vcf-spreadsheet-light>\n```",
           "summary": "",
-          "path": "src/incubator-spreadsheet-light.html",
+          "path": "src/vcf-spreadsheet-light.html",
           "properties": [],
           "methods": [],
           "staticMethods": [],
@@ -43,7 +43,7 @@
           },
           "privacy": "public",
           "superclass": "HTMLElement",
-          "name": "Vaadin.IncubatorSpreadsheetLight",
+          "name": "Vaadin.vcfSpreadsheetLight",
           "attributes": [],
           "events": [],
           "styling": {
@@ -51,7 +51,7 @@
             "selectors": []
           },
           "slots": [],
-          "tagname": "incubator-spreadsheet-light"
+          "tagname": "vcf-spreadsheet-light"
         }
       ]
     }

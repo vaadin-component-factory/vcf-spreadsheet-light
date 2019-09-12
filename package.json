@@ -1,25 +1,25 @@
 {
-  "name": "@vaadin/incubator-spreadsheet-light",
+  "name": "@vaadin-component-factory/vcf-spreadsheet-light",
   "version": "1.0.0-beta2",
-  "description": "incubator-spreadsheet-light",
-  "main": "incubator-spreadsheet-light.html",
-  "repository": "vaadin/incubator-spreadsheet-light",
+  "description": "vcf-spreadsheet-light",
+  "main": "vcf-spreadsheet-light.html",
+  "repository": "vaadin/vcf-spreadsheet-light",
   "keywords": [
     "Vaadin",
-    "incubator-spreadsheet-light",
+    "vcf-spreadsheet-light",
     "web-components",
     "web-component",
     "polymer"
   ],
   "author": "Vaadin Ltd",
-  "license": "https://raw.githubusercontent.com/vaadin/incubator-spreadsheet-light/master/LICENSE",
+  "license": "https://raw.githubusercontent.com/vaadin/vcf-spreadsheet-light/master/LICENSE",
   "bugs": {
-    "url": "https://github.com/vaadin/incubator-spreadsheet-light/issues"
+    "url": "https://github.com/vaadin/vcf-spreadsheet-light/issues"
   },
   "homepage": "https://vaadin.com/components",
   "scripts": {
     "test": "wct",
-    "analyze": "polymer analyze incubator-spreadsheet-light.html > analysis.json",
+    "analyze": "polymer analyze vcf-spreadsheet-light.html > analysis.json",
     "preversion": "gulp version:update"
   },
   "devDependencies": {

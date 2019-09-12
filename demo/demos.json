@@ -1,12 +1,12 @@
 {
-  "name": "Vaadin Incubator Element",
+  "name": "Vaadin VCF Element",
   "pages": [
   {
     "name": "Basics",
-    "url": "incubator-spreadsheet-light-basic-demos",
-    "src": "incubator-spreadsheet-light-basic-demos.html",
+    "url": "vcf-spreadsheet-light-basic-demos",
+    "src": "vcf-spreadsheet-light-basic-demos.html",
     "meta": {
-      "title": "incubator-spreadsheet-light Basic Examples",
+      "title": "vcf-spreadsheet-light Basic Examples",
       "description": "",
       "image": ""
      }
