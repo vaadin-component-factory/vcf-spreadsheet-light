@@ -1,29 +1,38 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-  <title>vcf-spreadsheet-light Examples</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-
-  <link rel="import" href="../../polymer/polymer.html">
-  <link rel="import" href="../../vaadin-demo-helpers/vaadin-component-demo.html">
-  <link rel="import" href="../../vaadin-demo-helpers/vaadin-demo-snippet.html">
-  <link rel="import" href="../../vaadin-demo-helpers/vaadin-demo-ready-event-emitter.html">
-
-  <script src="./vcf-spreadsheet-light-demo.js"></script>
-
-  <link rel="import" href="../vcf-spreadsheet-light.html">
-  <link rel="import" href="../../vaadin-button/vaadin-button.html">
-  <link rel="import" href="../../vaadin-icons/vaadin-icons.html">
-  <link rel="import" href="../../vaadin-lumo-styles/typography.html">
-
-  <custom-style>
-    <style include="vaadin-component-demo-shared-styles"></style>
-  </custom-style>
-</head>
-
-<body>
-  <vaadin-component-demo config-src="demos.json"></vaadin-component-demo>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
+    <title>vcf-spreadsheet-light demo</title>
+    <script dev src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script dev type="module" src="demo.js"></script>
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        .centered {
+          max-width: 1000px;
+        }
+        main {
+          opacity: 1;
+          transition: opacity 0.5s;
+        }
+        main.hidden {
+          opacity: 0;
+        }
+      </style>
+    </custom-style>
+    <script>
+      window.addEventListener('WebComponentsReady', () => document.querySelector('main').classList.remove('hidden'));
+    </script>
+  </head>
+  <body>
+    <main class="vertical-section-container centered hidden">
+      <h4><a href="api/#/elements/Vaadin.VcfSpreadsheetLight">API documentation ↗</a></h4>
+      <h3>Demo sample</h3>
+      <demo-snippet>
+        <template>
+          <vcf-spreadsheet-light col-count="5" height="700px"></vcf-spreadsheet-light>
+        </template>
+      </demo-snippet>
+    </main>
+  </body>
 </html>

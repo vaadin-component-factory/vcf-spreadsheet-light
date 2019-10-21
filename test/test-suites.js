@@ -1,3 +1,0 @@
-window.VcfSpreadsheetLightSuites = [
-  'sample.html',
-];
