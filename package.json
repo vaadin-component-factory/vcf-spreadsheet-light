@@ -1,6 +1,6 @@
 {
   "name": "@vaadin-component-factory/vcf-spreadsheet-light",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web Component providing basic functionalities of a spreadsheet.",
   "main": "theme/lumo/vcf-spreadsheet-light.js",
   "author": "Vaadin Ltd",
