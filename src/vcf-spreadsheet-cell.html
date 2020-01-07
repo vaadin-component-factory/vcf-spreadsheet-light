@@ -6,9 +6,10 @@ This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
 See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete license.
 -->
 
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
-<link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
+<link rel="import" href="../../polymer/polymer-element.html" />
+<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html" />
+<link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html" />
+<link rel="import" href="../../vaadin-license-checker/vaadin-license-checker.html" />
 
 <dom-module id="vcf-spreadsheet-cell">
   <template>
@@ -37,7 +38,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
     <div id="label" contenteditable>[[value]]</div>
   </template>
   <script>
-    (function () {
+    (function() {
       /**
        * `<vcf-spreadsheet-cell>` is a cell in for vcf-spreadsheet-light.
        *
@@ -149,16 +150,27 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
              * Is the control key down or not.
              */
             _ctrlDown: {
-              type:Boolean,
+              type: Boolean,
               value: false
             }
           };
         }
 
+        /**
+         * @protected
+         */
+        static _finalizeClass() {
+          super._finalizeClass();
+
+          const devModeCallback = window.Vaadin.developmentModeCallback;
+          const licenseChecker = devModeCallback && devModeCallback['vaadin-license-checker'];
+          if (typeof licenseChecker === 'function') {
+            licenseChecker(VcfSpreadsheetCell);
+          }
+        }
+
         static get observers() {
-          return [
-            '_styleChanged(backgroundColor, textColor)'
-          ];
+          return ['_styleChanged(backgroundColor, textColor)'];
         }
 
         focus(ctrlDown = false) {
@@ -178,14 +190,16 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             this.$.label.innerText = this.value;
           }
 
-          this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-selected', {
-            bubbles: true,
-            composed: true,
-            detail: {
-              col: this.col,
-              row: this.row
-            }
-          }));
+          this.dispatchEvent(
+            new CustomEvent('vcf-spreadsheet-cell-selected', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                col: this.col,
+                row: this.row
+              }
+            })
+          );
         }
 
         _cellBlurred() {
@@ -201,15 +215,17 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           }
           this.set('selected', false);
 
-          this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-blurred', {
-            bubbles: true,
-            composed: true,
-            detail: {
-              col: this.col,
-              row: this.row,
-              value: this.value
-            }
-          }));
+          this.dispatchEvent(
+            new CustomEvent('vcf-spreadsheet-cell-blurred', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                col: this.col,
+                row: this.row,
+                value: this.value
+              }
+            })
+          );
         }
 
         _labelKeyUp(ev) {
@@ -231,43 +247,36 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           switch (ev.keyCode) {
             case 13:
               ev.preventDefault();
-              this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-return', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                  col: this.col,
-                  row: this.row,
-                  ctrlDown: this._ctrlDown
-                }
-              }));
+              this.dispatchEvent(
+                new CustomEvent('vcf-spreadsheet-cell-key-return', {
+                  bubbles: true,
+                  composed: true,
+                  detail: {
+                    col: this.col,
+                    row: this.row,
+                    ctrlDown: this._ctrlDown
+                  }
+                })
+              );
               return;
             case 37:
               if (this._ctrlDown) {
-                this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-left', {
-                  bubbles: true,
-                  composed: true,
-                  detail: {
-                    col: this.col,
-                    row: this.row,
-                    ctrlDown: this._ctrlDown
-                  }
-                }));
+                this.dispatchEvent(
+                  new CustomEvent('vcf-spreadsheet-cell-key-left', {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                      col: this.col,
+                      row: this.row,
+                      ctrlDown: this._ctrlDown
+                    }
+                  })
+                );
               }
               return;
             case 38:
-              this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-up', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                  col: this.col,
-                  row: this.row,
-                  ctrlDown: this._ctrlDown
-                }
-              }));
-              return;
-            case 39:
-              if (this._ctrlDown) {
-                this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-right', {
+              this.dispatchEvent(
+                new CustomEvent('vcf-spreadsheet-cell-key-up', {
                   bubbles: true,
                   composed: true,
                   detail: {
@@ -275,31 +284,50 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
                     row: this.row,
                     ctrlDown: this._ctrlDown
                   }
-                }));
+                })
+              );
+              return;
+            case 39:
+              if (this._ctrlDown) {
+                this.dispatchEvent(
+                  new CustomEvent('vcf-spreadsheet-cell-key-right', {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                      col: this.col,
+                      row: this.row,
+                      ctrlDown: this._ctrlDown
+                    }
+                  })
+                );
               }
               return;
             case 40:
-              this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-key-down', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                  col: this.col,
-                  row: this.row,
-                  ctrlDown: this._ctrlDown
-                }
-              }));
+              this.dispatchEvent(
+                new CustomEvent('vcf-spreadsheet-cell-key-down', {
+                  bubbles: true,
+                  composed: true,
+                  detail: {
+                    col: this.col,
+                    row: this.row,
+                    ctrlDown: this._ctrlDown
+                  }
+                })
+              );
               return;
             case 86:
               if (this._ctrlDown) {
                 ev.preventDefault();
-                this.dispatchEvent(new CustomEvent('vcf-spreadsheet-cell-paste', {
-                  bubbles: true,
-                  composed: true,
-                  detail: {
-                    col: this.col,
-                    row: this.row
-                  }
-                }));
+                this.dispatchEvent(
+                  new CustomEvent('vcf-spreadsheet-cell-paste', {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                      col: this.col,
+                      row: this.row
+                    }
+                  })
+                );
               }
               return;
             case 17:
@@ -316,10 +344,6 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
        * @namespace Vaadin
        */
       window.Vaadin.VcfSpreadsheetCell = VcfSpreadsheetCell;
-
-      if (window.Vaadin.runIfDevelopmentMode) {
-        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfSpreadsheetCell);
-      }
     })();
   </script>
 </dom-module>

@@ -6,25 +6,31 @@ This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
 See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete license.
 -->
 
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
-<link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
-<link rel="import" href="../../vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../../polymer/polymer-element.html" />
+<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html" />
+<link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html" />
+<link rel="import" href="../../vaadin-grid/vaadin-grid.html" />
+<link rel="import" href="../../vaadin-license-checker/vaadin-license-checker.html" />
 
-<link rel="import" href="vcf-spreadsheet-cell.html">
+<link rel="import" href="vcf-spreadsheet-cell.html" />
 
 <dom-module id="vcf-spreadsheet-light">
   <template>
     <vaadin-grid id="spreadsheet" items="{{_spreadsheetData}}">
       <vaadin-grid-column width="60px" flex-grow="0" text-align="center" id="indexColumn"></vaadin-grid-column>
       <template is="dom-repeat" items="{{_referenceSequence}}" as="col">
-        <vaadin-grid-column id="[[col.colId]]" header="[[col.title]]" path="[[col.field]]" resizable></vaadin-grid-column>
+        <vaadin-grid-column
+          id="[[col.colId]]"
+          header="[[col.title]]"
+          path="[[col.field]]"
+          resizable
+        ></vaadin-grid-column>
       </template>
     </vaadin-grid>
   </template>
 
   <script>
-    (function () {
+    (function() {
       /**
        * `<vcf-spreadsheet-light>` is a light weight spreadsheet.
        *
@@ -93,10 +99,21 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           };
         }
 
+        /**
+         * @protected
+         */
+        static _finalizeClass() {
+          super._finalizeClass();
+
+          const devModeCallback = window.Vaadin.developmentModeCallback;
+          const licenseChecker = devModeCallback && devModeCallback['vaadin-license-checker'];
+          if (typeof licenseChecker === 'function') {
+            licenseChecker(VcfSpreadsheetLight);
+          }
+        }
+
         static get observers() {
-          return [
-            '_heightChanged(height)'
-          ];
+          return ['_heightChanged(height)'];
         }
 
         ready() {
@@ -105,7 +122,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           this.set('_spreadsheetData', this._getEmptySpreadsheetData(this._minimumRowsToDisplay));
 
           const columns = this.shadowRoot.querySelectorAll('vaadin-grid-column[id^="col-"]');
-          columns.forEach(c => {
+          columns.forEach((c) => {
             c.renderer = (root, column, rowData) => {
               if (!root.firstElementChild) {
                 const newCell = this._createCell(c.path, rowData.index, rowData.item[c.path]);
@@ -115,18 +132,18 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               const cell = root.firstElementChild;
               cell.value = rowData.item[c.path];
               cell.row = rowData.index;
-            }
+            };
           });
 
           const indexCol = this.shadowRoot.querySelector('vaadin-grid-column#indexColumn');
           indexCol.renderer = (root, column, rowData) => {
             root.textContent = rowData.index + 1;
-          }
+          };
 
           this._selectedCell = {
             col: this._referenceSequence[0].field,
             row: 0
-          }
+          };
         }
 
         hideColumn(col) {
@@ -146,9 +163,11 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         exportCSV() {
           // https://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
           const exportData = this._spreadsheetData.reduce((prev, row) => {
-            const line = Object.keys(row).map((k) => row[k]).join(',');
+            const line = Object.keys(row)
+              .map((k) => row[k])
+              .join(',');
             return `${prev}\n${line}`;
-          }, this._referenceSequence.map(c => c.field).join(','));
+          }, this._referenceSequence.map((c) => c.field).join(','));
 
           const element = document.createElement('a');
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportData));
@@ -183,9 +202,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         }
 
         _getCell(row, col) {
-          return this.shadowRoot.querySelector(
-            `vcf-spreadsheet-cell[col="${col.toLowerCase()}"][row="${row}"]`
-          );
+          return this.shadowRoot.querySelector(`vcf-spreadsheet-cell[col="${col.toLowerCase()}"][row="${row}"]`);
         }
 
         _createCell(colPath, rowIndex, initialValue = '') {
@@ -246,8 +263,8 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
         _getColumnIndex(column) {
           return this._referenceSequence.findIndex((item) => {
-              return item.field === column;
-            });
+            return item.field === column;
+          });
         }
 
         _focusCell(col, row, ctrlDown) {
@@ -260,12 +277,13 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
         _pasteFromClipboard() {
           // https://stackoverflow.com/questions/6413036/get-current-clipboard-content
-          navigator.clipboard.readText()
-            .then(text => {
+          navigator.clipboard
+            .readText()
+            .then((text) => {
               const lines = text.split('\n');
               const requiredLines = this._selectedCell.row + lines.length;
-              const rowsToDisplay = this._spreadsheetData.length > requiredLines ? this._spreadsheetData.length :
-                requiredLines;
+              const rowsToDisplay =
+                this._spreadsheetData.length > requiredLines ? this._spreadsheetData.length : requiredLines;
               const colOffset = this._referenceSequence.findIndex((item) => {
                 return item.field === this._selectedCell.col;
               });
@@ -283,7 +301,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               this.set('_spreadsheetData', newData);
               this._focusCell(this._selectedCell.row, this._selectedCell.col);
             })
-            .catch(err => {
+            .catch((err) => {
               console.error('Failed to read clipboard contents: ', err);
             });
         }
@@ -291,7 +309,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         _getEmptyRow() {
           const _emptyRow = {};
 
-          this._referenceSequence.forEach(c => {
+          this._referenceSequence.forEach((c) => {
             _emptyRow[c.field] = '';
           });
 
@@ -315,7 +333,8 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         }
 
         _getColTitle(colNumber) {
-          const diff = 'Z'.charCodeAt(0) - 'A'.charCodeAt(0), startCode = 'A'.charCodeAt(0);
+          const diff = 'Z'.charCodeAt(0) - 'A'.charCodeAt(0),
+            startCode = 'A'.charCodeAt(0);
           const alpha = Math.floor(colNumber / (diff + 1));
 
           if (alpha === 0) {
@@ -346,10 +365,6 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
        * @namespace Vaadin
        */
       window.Vaadin.VcfSpreadsheetLight = VcfSpreadsheetLight;
-
-      if (window.Vaadin.runIfDevelopmentMode) {
-        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfSpreadsheetLight);
-      }
     })();
   </script>
 </dom-module>
