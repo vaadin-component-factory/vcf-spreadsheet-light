@@ -9,6 +9,7 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin';
+import '@vaadin/vaadin-license-checker/vaadin-license-checker';
 
 /**
  * `<vcf-spreadsheet-cell>` is a cell for vcf-spreadsheet-light.
@@ -53,6 +54,10 @@ class VcfSpreadsheetCell extends ElementMixin(ThemableMixin(PolymerElement)) {
 
   static get is() {
     return 'vcf-spreadsheet-cell';
+  }
+
+  static get version() {
+    return '1.0.1';
   }
 
   /**
@@ -154,6 +159,19 @@ class VcfSpreadsheetCell extends ElementMixin(ThemableMixin(PolymerElement)) {
         value: false
       }
     };
+  }
+
+  /**
+   * @protected
+   */
+  static _finalizeClass() {
+    super._finalizeClass();
+
+    const devModeCallback = window.Vaadin.developmentModeCallback;
+    const licenseChecker = devModeCallback && devModeCallback['vaadin-license-checker'];
+    if (typeof licenseChecker === 'function') {
+      licenseChecker(VcfSpreadsheetCell);
+    }
   }
 
   static get observers() {
@@ -331,7 +349,3 @@ customElements.define(VcfSpreadsheetCell.is, VcfSpreadsheetCell);
  * @namespace Vaadin
  */
 window.Vaadin.VcfSpreadsheetCell = VcfSpreadsheetCell;
-
-if (window.Vaadin.runIfDevelopmentMode) {
-  window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfSpreadsheetCell);
-}

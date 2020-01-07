@@ -9,6 +9,7 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin';
+import '@vaadin/vaadin-license-checker/vaadin-license-checker';
 import '@vaadin/vaadin-grid';
 import './vcf-spreadsheet-cell';
 
@@ -46,7 +47,7 @@ class VcfSpreadsheetLight extends ElementMixin(ThemableMixin(PolymerElement)) {
   }
 
   static get version() {
-    return '1.0.0';
+    return '1.0.1';
   }
 
   static get properties() {
@@ -99,6 +100,19 @@ class VcfSpreadsheetLight extends ElementMixin(ThemableMixin(PolymerElement)) {
         type: Object
       }
     };
+  }
+
+  /**
+   * @protected
+   */
+  static _finalizeClass() {
+    super._finalizeClass();
+
+    const devModeCallback = window.Vaadin.developmentModeCallback;
+    const licenseChecker = devModeCallback && devModeCallback['vaadin-license-checker'];
+    if (typeof licenseChecker === 'function') {
+      licenseChecker(VcfSpreadsheetLight);
+    }
   }
 
   static get observers() {
@@ -354,7 +368,3 @@ customElements.define(VcfSpreadsheetLight.is, VcfSpreadsheetLight);
  * @namespace Vaadin
  */
 window.Vaadin.VcfSpreadsheetLight = VcfSpreadsheetLight;
-
-if (window.Vaadin.runIfDevelopmentMode) {
-  window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfSpreadsheetLight);
-}
